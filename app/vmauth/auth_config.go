@@ -51,6 +51,7 @@ type UserInfo struct {
 	BearerToken            string      `yaml:"bearer_token,omitempty"`
 	Username               string      `yaml:"username,omitempty"`
 	Password               string      `yaml:"password,omitempty"`
+	PasswordHash           string      `yaml:"password_hash,omitempty"`
 	URLPrefix              *URLPrefix  `yaml:"url_prefix,omitempty"`
 	URLMaps                []URLMap    `yaml:"url_map,omitempty"`
 	HeadersConf            HeadersConf `yaml:",inline"`
@@ -526,6 +527,9 @@ func parseAuthConfig(data []byte) (*AuthConfig, error) {
 		}
 		if ui.Password != "" {
 			return nil, fmt.Errorf("field password can't be specified for unauthorized_user section")
+		}
+		if ui.PasswordHash != "" {
+			return nil, fmt.Errorf("field password_hash can't be specified for unauthorized_user section")
 		}
 		if ui.BearerToken != "" {
 			return nil, fmt.Errorf("field bearer_token can't be specified for unauthorized_user section")
